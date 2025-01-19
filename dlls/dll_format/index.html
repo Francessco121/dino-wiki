@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        
+        <link rel="shortcut icon" href="../../img/favicon.ico">
+        <title>DLL Format - Dinosaur Planet Tech Wiki</title>
+        <link href="../../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../../css/fontawesome.min.css" rel="stylesheet">
+        <link href="../../css/brands.min.css" rel="stylesheet">
+        <link href="../../css/solid.min.css" rel="stylesheet">
+        <link href="../../css/v4-font-face.min.css" rel="stylesheet">
+        <link href="../../css/base.css" rel="stylesheet">
+        <link id="hljs-light" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" disabled>
+        <link id="hljs-dark" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css" >
+        <link href="../../css/dino.css" rel="stylesheet">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/mips.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/mipsasm.min.js"></script>
+        <script>hljs.highlightAll();</script> 
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href="../..">Dinosaur Planet Tech Wiki</a>
+                <!-- Expander button -->
+                <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbar-collapse" aria-controls="navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li class="nav-item">
+                                <a href="../.." class="nav-link">Home</a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle active" aria-current="page" role="button" data-bs-toggle="dropdown"  aria-expanded="false">DLL System</a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../" class="dropdown-item">DLL Overview</a>
+</li>
+                                    
+<li>
+    <a href="./" class="dropdown-item active" aria-current="page">DLL Format</a>
+</li>
+                                    
+<li>
+    <a href="../dlls_tab/" class="dropdown-item">DLLS.tab</a>
+</li>
+                                    
+<li>
+    <a href="../dlls_import_tab/" class="dropdown-item">DLLSIMPORT.tab</a>
+</li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav ms-md-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                            <li class="nav-item">
+                                <a rel="prev" href="../" class="nav-link">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a rel="next" href="../dlls_tab/" class="nav-link">
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <script src="../../js/darkmode.js"></script>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-bs-toggle="collapse" data-bs-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-body-tertiary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-bs-level="1"><a href="#dll-format" class="nav-link">DLL Format</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-bs-level="2"><a href="#header" class="nav-link">Header</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#exports" class="nav-link">Exports</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#text-section" class="nav-link">.text Section</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#rodata-section" class="nav-link">.rodata Section</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-bs-level="3"><a href="#global-offset-table" class="nav-link">Global Offset Table</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="3"><a href="#relocation-table" class="nav-link">Relocation Table</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#non-standard-gp-prologue" class="nav-link">Non-standard $gp Prologue</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<h1 id="dll-format">DLL Format</h1>
+<p>Each DLL is found inside of DLLS.bin. The file itself does not contain a header or a way to locate a DLL inside. Instead, the individual DLLs can be located by using the information in <a href="../dlls_tab/">DLLS.tab</a> which contains offsets for this file.</p>
+<p>An individual DLL contains the following:</p>
+<ul>
+<li>A header</li>
+<li>An export table</li>
+<li>A <code>.text</code> section</li>
+<li>A <code>.rodata</code> section (optional)</li>
+<li>A <code>.data</code> section (optional)</li>
+</ul>
+<h2 id="header">Header</h2>
+<p>A DLL file starts with a header. The header lists offsets to each section, the number of exports, and offsets to the DLL's constructor and destructor functions.</p>
+<table>
+<thead>
+<tr>
+<th>Offset</th>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0x0</td>
+<td>textOffset</td>
+<td>u32</td>
+<td>Byte offet to <code>.text</code> section.</td>
+</tr>
+<tr>
+<td>0x4</td>
+<td>dataOffset</td>
+<td>u32</td>
+<td>Byte offet to <code>.data</code> section (or <code>0xFFFFFFFF</code> if it doesn't exist).</td>
+</tr>
+<tr>
+<td>0x8</td>
+<td>rodataOffset</td>
+<td>u32</td>
+<td>Byte offet to <code>.rodata</code> section (or <code>0xFFFFFFFF</code> if it doesn't exist).</td>
+</tr>
+<tr>
+<td>0xC</td>
+<td>exportCount</td>
+<td>u16</td>
+<td>Number of functions this DLL exports.</td>
+</tr>
+<tr>
+<td>0x10</td>
+<td>ctorOffset</td>
+<td>u32</td>
+<td>Byte offset from <code>.text</code> to the constructor function.</td>
+</tr>
+<tr>
+<td>0x14</td>
+<td>dtorOffset</td>
+<td>u32</td>
+<td>Byte offset from <code>.text</code>to the destructor function.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="exports">Exports</h2>
+<p>Following the header is the DLL's export table. Code outside of the DLL calls functions in the DLL through its export table, this defines the DLL's "public interface".</p>
+<p>Before the actual export entries is a single 32-bit number with a currently unknown purpose. It's typically zero. After that is a list of export table entries, with a length of <code>exportCount</code> from the header.</p>
+<table>
+<thead>
+<tr>
+<th>Offset</th>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0x18</td>
+<td>unknown</td>
+<td>u32</td>
+<td>Unknown.</td>
+</tr>
+<tr>
+<td>0x1C</td>
+<td>exportOffset[0]</td>
+<td>u32</td>
+<td>Byte offset from <code>.text</code> to the exported function.</td>
+</tr>
+<tr>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+</tr>
+</tbody>
+</table>
+<h2 id="text-section">.text Section</h2>
+<p>The DLL's <code>.text</code> section contains all of the DLL's executable code. This is position-independent code (PIC) making use of the <code>$gp</code> register. After a DLL is relocated, each function (that needs it) starts by setting the <code>$gp</code> register to the current address of the DLL's global offset table . This allows the function to reference other functions and data outside of the function in a position-independent way.</p>
+<h2 id="rodata-section">.rodata Section</h2>
+<p>The <code>.rodata</code> section is special as it contains not only the DLL's readonly data but also its global offset table and relocation table.</p>
+<table>
+<thead>
+<tr>
+<th>.rodata Visualization</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Global offset table</td>
+</tr>
+<tr>
+<td>0xFFFF_FFFE</td>
+</tr>
+<tr>
+<td>$gp relocations</td>
+</tr>
+<tr>
+<td>0xFFFF_FFFD</td>
+</tr>
+<tr>
+<td>.data relocations</td>
+</tr>
+<tr>
+<td>0xFFFF_FFFF</td>
+</tr>
+<tr>
+<td>Readonly data...</td>
+</tr>
+</tbody>
+</table>
+<h3 id="global-offset-table">Global Offset Table</h3>
+<p>The start of <code>.rodata</code> is always the global offset table. Before relocation, this is a list of byte offsets from <code>.text</code> for local symbols and DLLSIMPORT.tab indexes for external symbols. After relocation, this is a list of absolute VRAM addresses to each symbol. The GOT is terminated by <code>0xFFFF_FFFE</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Offset</th>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0x0</td>
+<td>gotEntry[0]</td>
+<td>u32</td>
+<td>If the 32nd bit is set (0x80000000), a <a href="../dlls_import_tab/">DLLSIMPORT.tab</a> index, otherwise a byte offset from <code>.text</code> to the symbol.</td>
+</tr>
+<tr>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+</tr>
+<tr>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>0xFFFF_FFFE</td>
+</tr>
+</tbody>
+</table>
+<h3 id="relocation-table">Relocation Table</h3>
+<p>Immediately following the global offset table is the DLL's relocation table. This is split into two parts: <code>$gp</code> prologue relocations and <code>.data</code> relocations.</p>
+<p>First is a list of byte offsets from <code>.text</code> to the <code>$gp</code> prologue of each DLL function that accesses the GOT. At relocation time, these prologues will be updated so that they initialize <code>$gp</code> to the current absolute address of the DLL's GOT. This list is terminated by <code>0xFFFF_FFFD</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Offset</th>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0x0</td>
+<td>gpPrologueOffset[0]</td>
+<td>u32</td>
+<td>Byte offset from <code>.text</code> to a function's <code>$gp</code> prologue.</td>
+</tr>
+<tr>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+</tr>
+<tr>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>0xFFFF_FFFD</td>
+</tr>
+</tbody>
+</table>
+<p>Immediately following the <code>$gp</code> prologue relocations are the <code>.data</code> relocations. These relocations point to values in the <code>.data</code> section that need to be offset by the relocated address of the DLL. An example would be a global variable initialized to the address of one of the DLL's functions.</p>
+<table>
+<thead>
+<tr>
+<th>Offset</th>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0x0</td>
+<td>dataOffset[0]</td>
+<td>u32</td>
+<td>Byte offset from <code>.data</code> to a data value that needs to be relocated.</td>
+</tr>
+<tr>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+</tr>
+<tr>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>0xFFFF_FFFF</td>
+</tr>
+</tbody>
+</table>
+<h2 id="non-standard-gp-prologue">Non-standard $gp Prologue</h2>
+<p>Dinosaur Planet DLLs do not use standard MIPS <code>$gp</code> prologues:</p>
+<pre><code class="language-mips">; Dinosaur Planet's version
+; Note that it uses the ori instruction instead of addiu
+lui $gp, 0x0
+ori $gp, $gp, 0x0
+nop
+</code></pre></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script src="../../js/bootstrap.bundle.min.js"></script>
+        <script>
+            var base_url = "../..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../../js/base.js"></script>
+        <script src="../../search/main.js"></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>From here you can search these documents. Enter your search terms below.</p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results" data-no-results-text="No results found"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

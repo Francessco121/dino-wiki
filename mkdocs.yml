@@ -1,4 +1,7 @@
 site_name: Dinosaur Planet Tech Wiki
+site_description: A simple wiki for documenting the internal technical details of the game Dinosaur Planet.
+repo_url: https://github.com/Francessco121/dino-wiki
+edit_uri: edit/main/docs
 theme:
   name: mkdocs
   color_mode: dark
@@ -11,9 +14,9 @@ theme:
 extra_css:
   - css/dino.css
 nav:
-- Home: 'index.md'
-- DLL System:
-  - DLL Overview: 'dlls/index.md'
-  - DLL Format: 'dlls/dll_format.md'
-  - DLLS.tab: 'dlls/dlls_tab.md'
-  - DLLSIMPORT.tab: 'dlls/dlls_import_tab.md'
+  - Home: 'index.md'
+  - DLL System:
+    - DLL Overview: 'dlls/index.md'
+    - DLL Format: 'dlls/dll_format.md'
+    - DLLS.tab: 'dlls/dlls_tab.md'
+    - DLLSIMPORT.tab: 'dlls/dlls_import_tab.md'

@@ -8,7 +8,7 @@ This site is focused on documenting the internal technical details of the game [
 
 Sections:
 
-- [DLL System](dlls/)
+- [DLL System](dlls/index.md)
 
 Other resources:
 

@@ -19,10 +19,10 @@ A DLL file starts with a header. The header lists offsets to each section, the n
 | 0x8 | rodataOffset | u32 | Byte offet to `.rodata` section (or `0xFFFFFFFF` if it doesn't exist). |
 | 0xC | exportCount | u16 | Number of functions this DLL exports. |
 | 0x10 | ctorOffset | u32 | Byte offset from `.text` to the constructor function. |
-| 0x14 | dtorOffset | u32 | Byte offset from `.text`to the destructor function. |
+| 0x14 | dtorOffset | u32 | Byte offset from `.text` to the destructor function. |
 
 ## Exports
-Following the header is the DLL's export table. Code outside of the DLL calls functions in the DLL through its export table, this defines the DLL's "public interface".
+Following the header is the DLL's export table. This defines the "public interface" of the DLL, allowing outside code to invoke functions inside of the DLL through the export table.
 
 Before the actual export entries is a single 32-bit number with a currently unknown purpose. It's typically zero. After that is a list of export table entries, with a length of `exportCount` from the header.
 

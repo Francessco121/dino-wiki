@@ -2,7 +2,7 @@
 
 Welcome to the Dinosaur Planet technical wiki!
 
-This site is focused on documenting the internal technical details of the game, rather than the game itself.
+This site is focused on documenting the internal technical details of the game [Dinosaur Planet](https://www.rarewiki.com/wiki/Dinosaur_Planet). Information such as story and gameplay will **not** be documented here.
 
 > Note: All datatype formats listed in this wiki are in big-endian unless otherwise noted.
 

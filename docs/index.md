@@ -8,7 +8,11 @@ This site is focused on documenting the internal technical details of the game [
 
 Sections:
 
-- [DLL System](dlls/index.md)
+- DLL System
+    - [DLL Overview](dlls/index.md)
+    - [DLL Format](dlls/dll_format.md)
+    - [DLLS.tab](dlls/dlls_tab.md)
+    - [DLLSIMPORT.tab](dlls/dlls_import_tab.md)
 
 Other resources:
 

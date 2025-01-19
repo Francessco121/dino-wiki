@@ -194,12 +194,12 @@
 <td>0x14</td>
 <td>dtorOffset</td>
 <td>u32</td>
-<td>Byte offset from <code>.text</code>to the destructor function.</td>
+<td>Byte offset from <code>.text</code> to the destructor function.</td>
 </tr>
 </tbody>
 </table>
 <h2 id="exports">Exports</h2>
-<p>Following the header is the DLL's export table. Code outside of the DLL calls functions in the DLL through its export table, this defines the DLL's "public interface".</p>
+<p>Following the header is the DLL's export table. This defines the "public interface" of the DLL, allowing outside code to invoke functions inside of the DLL through the export table.</p>
 <p>Before the actual export entries is a single 32-bit number with a currently unknown purpose. It's typically zero. After that is a list of export table entries, with a length of <code>exportCount</code> from the header.</p>
 <table>
 <thead>

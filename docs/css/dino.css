@@ -1,0 +1,33 @@
+.dropdown-menu {
+  --bs-dropdown-link-hover-color: #333;
+  --bs-dropdown-link-hover-bg: rgb(231, 224, 193);
+  --bs-dropdown-link-active-color: #333;
+  --bs-dropdown-link-active-bg: rgb(255, 219, 76);
+}
+
+.nav {
+  --bs-nav-link-color: rgb(255, 219, 76);
+  --bs-nav-link-hover-color: rgb(231, 224, 193);
+}
+
+a {
+  color: rgb(255, 219, 76);
+}
+a:hover {
+  color: rgb(231, 224, 193);
+}
+
+.navbar.bg-primary {
+  background-image: none;
+  background-color: #222 !important;
+}
+
+.table {
+  border: 1px solid var(--bs-table-border-color);
+  width: auto;
+}
+
+[role=main] {
+  min-height: 100%;
+  padding-bottom: 25vh;
+}
